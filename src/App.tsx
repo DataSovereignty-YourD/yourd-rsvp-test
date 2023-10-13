@@ -1,5 +1,12 @@
-import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import LoginPage from './pages/loginPage';
+import MainPage from './pages/mainPage';
 
 export default function App() {
-  return(<div>hello</div>);
+  return (
+    <Routes>
+      <Route path="/" element={<MainPage />} />
+      <Route path="/login" element={<LoginPage />} />
+    </Routes>
+  );
 }
