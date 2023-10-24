@@ -59,6 +59,7 @@ function App() {
           <Route path="/createdate" element={<CreateDate />} />
           <Route path="/creatersvp" element={<CreateRsvp />} />
           <Route path="/project" element={<ListRsvp />} />
+          {/* <Route path="/project/*" element={<ProjectDetailPage />} /> */}
           <Route path="/project/:id/*" element={<ProjectDetailPage />} />
         </Routes>
       </React.Fragment>

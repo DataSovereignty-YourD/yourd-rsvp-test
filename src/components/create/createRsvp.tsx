@@ -62,7 +62,7 @@ export default function CreateRsvp() {
       </div>
 
       <Link
-        to="/listrsvp"
+        to="/project"
         className=" mt-8 flex h-16 font-bold text-3xl uppercase text-yellow-300 bg-black justify-center items-center p-4 rounded-md"
       >
         {" "}
