@@ -110,7 +110,7 @@ export default function ListRsvp() {
                   className=" w-full border gap-6 flex flex-col rounded-xl col-span-2"
                 >
                   <Link
-                    to="/project"
+                    to={`${box.name}/`}
                     className="  gap-4  h-48 p-5 items-center justify-between flex flex-col font-bold text-xl"
                   >
                     <div>D-Day 5</div>
