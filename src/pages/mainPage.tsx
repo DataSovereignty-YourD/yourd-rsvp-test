@@ -1,7 +1,17 @@
-import Login from "../components/login/login"
+import qr from "../assets/img/qr.png";
+import bgImg from "../assets/img/background1.png";
+import MainRsvp from "../components/rsvp/mainRsvp";
+import RsvpFeatures from "../components/rsvp/rsvpFeatures";
+import RsvpUsecase from "../components/rsvp/rsvpUsecase";
+import Footer from "../components/common/footer";
+
 export default function MainPage() {
-    return <div className="w-full h-screen">
-        <div className="w-1/2 h-1/2 bg-slate-200"> rsvp 랜딩 메인 first 페이지</div>
-        <Login/>
-    </div>
+  return (
+    <>
+      <MainRsvp />
+      <RsvpFeatures />
+      <RsvpUsecase />
+      <Footer />
+    </>
+  );
 }
