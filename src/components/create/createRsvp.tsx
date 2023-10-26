@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import CurrentPage from "../currentPage";
+import { useLocation } from "react-router-dom";
 
-export default function CreateRsvp() {
+const CreateRsvp: React.FC = () => {
   const name = localStorage.getItem("invitationName");
   const location = localStorage.getItem("invitationLocation");
   const startDate = localStorage.getItem("invitationStartDate");
@@ -70,4 +71,5 @@ export default function CreateRsvp() {
       </Link>
     </div>
   );
-}
+};
+export default CreateRsvp;

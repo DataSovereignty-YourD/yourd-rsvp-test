@@ -36,7 +36,7 @@ function TimeSelect({ selectedTime, setSelectedTime, options }: any) {
   );
 }
 
-export default function CreateName() {
+export default function CreateDetail() {
   const timeOptions = [
     "08",
     "09",
@@ -83,6 +83,8 @@ export default function CreateName() {
   const [endDate, setEndDate] = useState<string>("");
   const [startTime, setStartTime] = useState<string>("");
   const [endTime, setEndTime] = useState<string>("");
+  const [startMinute, setStartMinute] = useState<string>("");
+  const [endMinute, setEndMinute] = useState<string>("");
   const navigate = useNavigate();
   const [date, setDate] = useState(new Date());
   const [isCalendarStartVisible, setCalendarStartVisible] = useState(false);
@@ -92,6 +94,7 @@ export default function CreateName() {
   const [selectedStartMinute, setSelectedStartMinute] = useState<string>("");
   const [selectedEndMinute, setSelectedEndMinute] = useState<string>("");
   const [openPostcode, setOpenPostcode] = React.useState<boolean>(false);
+  const [buttonBgColor, setButtonBgColor] = useState<string>("black"); // 배경색 상태 추가
 
   const handle = {
     // 버튼 클릭 이벤트
@@ -106,36 +109,31 @@ export default function CreateName() {
     },
   };
 
+  const checkInputValidity = () => {
+    if (startDate && endDate && startMinute && endMinute && location) {
+      setButtonBgColor("black");
+    } else {
+      setButtonBgColor("white");
+    }
+  };
+
   const handleSubmit = () => {
-    let missingFields = []; // 누락된 필드를 저장할 배열
-
-    // if (!location) missingFields.push("위치");
-    // if (!startDate) missingFields.push("시작 날짜");
-    // if (!endDate) missingFields.push("종료 날짜");
-    // if (!startTime) missingFields.push("시작 시간");
-    // if (!endTime) missingFields.push("종료 시간");
-
-    // // 누락된 필드가 없으면 페이지 이동
-    // if (missingFields.length === 0) {
-    //   localStorage.setItem("invitationLocation", location);
-    //   localStorage.setItem("invitationStartDate", startDate);
-    //   localStorage.setItem("invitationEndDate", endDate);
-    //   localStorage.setItem("invitationStartTime", startTime);
-    //   localStorage.setItem("invitationEndTime", endTime);
-
-    navigate("/creatersvp");
-    // } else {
-    //   // 누락된 필드가 있으면 해당 필드 이름을 경고 메시지에 포함하여 출력
-    //   const missingMessage = missingFields.join(", ");
-    //   console.warn(`다음 필드를 채워주세요: ${missingMessage}`);
-    // }
+    // URL 쿼리 매개변수를 사용하여 값을 다음 페이지로 전달
+    const queryParams = `?startDate=${startDate}&startMinute=${startMinute}&endDate=${endDate}&endMinute=${endMinute}&location=${location}`;
+    navigate(`/creatersvp${queryParams}`);
   };
 
   return (
-    <div className=" gap-12  flex bg-slate-100  mx-32  items-center justify-center h-screen  flex-col">
+    <div className="  gap-12 flex bg-slate-100  mx-32  items-center justify-center h-screen  flex-col">
       <CurrentPage />
-      <div className="   flex items-center text-black justify-center uppercase  p-5 font-semibold text-5xl">
-        Detail about Rsvp
+      <div className="gap-6">
+        <div className=" flex items-center text-black justify-center p-5 font-semibold text-5xl">
+          Detail about Rsvp
+        </div>
+        <div>
+          write your event time and location about your rsvp. If your date is
+          only oneday, you have to pick one day in both calendar.
+        </div>
       </div>
 
       <div className="gap-6 flex flex-col">
@@ -144,8 +142,8 @@ export default function CreateName() {
           <div className=" items-center justify-center  grid grid-cols-6 flex-row gap-6 ">
             <div className="col-span-4">
               <input
-                className="  border  border-black rounded  h-12 p-4 w-full"
-                placeholder="Date"
+                className="  border-b-4  border-blue-600 rounded  h-12 p-4 w-full"
+                placeholder="시작 날짜"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
                 onClick={() => setCalendarStartVisible(!isCalendarStartVisible)}
@@ -162,9 +160,10 @@ export default function CreateName() {
 
             <div className="col-span-1">
               <div className="flex flex-col">
-                <div>Hour</div>
+                <div className="flex items-center justify-center">Hour</div>
 
                 <TimeSelect
+                  value={startTime}
                   selectedTime={selectedStartTime}
                   setSelectedTime={setSelectedStartTime}
                   options={timeOptions}
@@ -173,8 +172,9 @@ export default function CreateName() {
             </div>
             <div className="col-span-1">
               <div>
-                <div>Minutes</div>
+                <div className="flex items-center justify-center">Minutes</div>
                 <TimeSelect
+                  value={startMinute}
                   selectedTime={selectedStartMinute}
                   setSelectedTime={setSelectedStartMinute}
                   options={minuteOptions}
@@ -189,8 +189,8 @@ export default function CreateName() {
           <div className=" items-center justify-center  grid grid-cols-6 flex-row gap-6 ">
             <div className="col-span-4">
               <input
-                className="  border border-black rounded w-full h-12 p-4"
-                placeholder="Date"
+                className="  border-b-4  border-blue-600 rounded w-full h-12 p-4"
+                placeholder="종료 날짜"
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
                 onClick={() => setCalendarEndVisible(!isCalendarEndVisible)}
@@ -206,8 +206,9 @@ export default function CreateName() {
             </div>
             <div className="col-span-1">
               <div>
-                <div>Hour</div>
+                <div className="flex items-center justify-center">Hour</div>
                 <TimeSelect
+                  value={endTime}
                   selectedTime={selectedEndTime}
                   setSelectedTime={setSelectedEndTime}
                   options={timeOptions}
@@ -216,8 +217,9 @@ export default function CreateName() {
             </div>
             <div className="col-span-1">
               <div>
-                <div>Minutes</div>
+                <div className="flex items-center justify-center">Minutes</div>
                 <TimeSelect
+                  value={endMinute}
                   selectedTime={selectedEndMinute}
                   setSelectedTime={setSelectedEndMinute}
                   options={minuteOptions}
@@ -232,7 +234,7 @@ export default function CreateName() {
           <div className=" items-center justify-center w-full flex-row gap-6 ">
             <input
               type="text"
-              className="border border-black rounded w-full h-12 p-4"
+              className="border-b-4  border-blue-600 rounded w-full h-12 p-4"
               placeholder="위치"
               value={location}
               readOnly // 이 부분을 추가하여 input을 읽기 전용으로 만듭니다.
@@ -248,13 +250,17 @@ export default function CreateName() {
           </div>
         </div>
       </div>
-
-      <button
-        className="mt-16 flex h-16 font-bold text-3xl text-white  bg-black justify-center items-center p-4 rounded-md"
-        onClick={handleSubmit} // onClick 이벤트에 handleSubmit 연결
-      >
-        CREATE RSVP
-      </button>
+      <div className="flex flex-row justify-center gap-6">
+        <button className="mt-12 flex w-40 h-12 font-bold text-3xl text-black bg-slate-200  justify-center items-center p-4 rounded-md">
+          Back
+        </button>
+        <button
+          className={`mt-12 flex h-12 font-bold text-2xl w-40 uppercase text-yellow-500 bg-${buttonBgColor} justify-center items-center p-4 rounded-md`}
+          onClick={handleSubmit} // onClick 이벤트에 handleSubmit 연결
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 }
