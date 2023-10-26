@@ -58,7 +58,7 @@ const Step = ({ num, isActive }: any) => {
 export default function CurrentPage() {
   const location = useLocation();
   const isOnCreateNamePage = location.pathname === "/createname";
-  const isOnCreateDatePage = location.pathname === "/createdate";
+  const isOnCreateDatePage = location.pathname === "/createdetail";
   const isOnCreateRsvpPage = location.pathname === "/creatersvp";
 
   return (

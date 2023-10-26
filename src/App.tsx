@@ -8,7 +8,7 @@ import MainPage from "./pages/mainPage";
 import CreateName from "./components/create/createName";
 import TopBar from "./components/common/topBar";
 import ProjectTopBar from "./pages/navigation/projectTopBar";
-import CreateDate from "./components/create/createDate";
+import CreateDetail from "./components/create/createDetail";
 import CreateRsvp from "./components/create/createRsvp";
 import ListRsvp from "./pages/listRsvp";
 import ProjectDetailPage from "./pages/projectDetailPage";
@@ -39,7 +39,7 @@ function App() {
           <Route path="/" element={<MainPage />} />
 
           <Route path="/createname" element={<CreateName />} />
-          <Route path="/createdate" element={<CreateDate />} />
+          <Route path="/createdetail" element={<CreateDetail />} />
           <Route path="/creatersvp" element={<CreateRsvp />} />
           <Route path="/listrsvp" element={<ListRsvp />} />
           <Route path="/login" element={<Login />} />
@@ -56,7 +56,7 @@ function App() {
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/createname" element={<CreateName />} />
-          <Route path="/createdate" element={<CreateDate />} />
+          <Route path="/createdetail" element={<CreateDetail />} />
           <Route path="/creatersvp" element={<CreateRsvp />} />
           <Route path="/project" element={<ListRsvp />} />
           {/* <Route path="/project/*" element={<ProjectDetailPage />} /> */}
