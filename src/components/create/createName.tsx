@@ -28,6 +28,10 @@ const CreatePage: React.FC = () => {
     }
   };
 
+  const isNumeric = (value: string) => {
+    return /^\d+$/.test(value);
+  };
+
   return (
     <div
       className={`gap-8 flex bg-slate-50 mx-32 items-center justify-center h-screen flex-col`}
@@ -55,6 +59,7 @@ const CreatePage: React.FC = () => {
           <div>How Many People</div>
           <div className="items-center justify-center w-full flex-row gap-6 gap-">
             <input
+              type="number"
               className="border border-black rounded w-full h-12 p-4"
               placeholder="Number"
               value={peopleCount}
