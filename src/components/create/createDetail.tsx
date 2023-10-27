@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Calendar from "react-calendar";
-import CurrentPage from "../currentPage";
+import CurrentPage from "../../pages/currentPage";
 import DaumPostcode from "react-daum-postcode";
 import "react-calendar/dist/Calendar.css";
 

@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import CurrentPage from "../currentPage";
+import CurrentPage from "../../pages/currentPage";
 import React, { useState } from "react";
 
 const Preview = () => {

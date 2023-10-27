@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { loginState } from "../../recoil/loginState";
-
+import Login from "../login/login";
 export default function MainRsvp() {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
@@ -26,13 +26,16 @@ export default function MainRsvp() {
           당신의 사람들에게 초대장을 보내세요.
         </div>
 
-        <button
-          className="flex h-16 mt-32 justify-center bg-black text-white w-48 font-bold text-xl items-center p-4 rounded-md"
+        {/* <button
+          className="flex w-60 h-32  mt-32 justify-center bg-black text-white  font-bold text-xl items-center p-4 rounded-md"
           onClick={handleCreateRsvpClick}
         >
           {isLoggedIn ? "Create RSVP" : "Create RSVP"}{" "}
-          {/* 버튼 텍스트를 동적으로 변경 */}
-        </button>
+        </button> */}
+         <Link to='/createname'
+          className="flex w-60 h-32  mt-32 justify-center bg-black text-white  font-bold text-xl items-center p-4 rounded-md"
+      
+        >rsvp생성버튼</Link>
       </div>
     </div>
   );
