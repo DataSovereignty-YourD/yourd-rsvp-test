@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 import { sideBarToggleState } from "../../recoil/sideBarToggle";
 import classNames from "classnames";
 import { loginState } from "../../recoil/loginState";
-import ProfileModal from "../../utils/profileModal";
+import ProfileModal from "./profileModal";
 import {
   AiOutlineSearch,
   AiOutlineMenuUnfold,

@@ -1,4 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { FiAlertCircle } from 'react-icons/fi';
 import { useEffect, useState } from 'react';
 import {
@@ -7,16 +8,16 @@ import {
   AiFillEyeInvisible,
 } from 'react-icons/ai';
 export default function Login() {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(true);
   const [isEyeClick, setIsEyeClick] = useState(false);
   return (
     <div className="px-4 py-64 grid place-content-center">
-      <button
+      {/* <button
         onClick={() => setIsOpen(true)}
         className="bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-medium px-4 py-2 rounded hover:opacity-90 transition-opacity"
       >
         sign In
-      </button>
+      </button> */}
       <SpringModal isOpen={isOpen} setIsOpen={setIsOpen} />
     </div>
   );
@@ -111,10 +112,12 @@ const SpringModal: React.FC<{
                     <span className="text-slate-400">or</span>
                     <div className="h-[1px] w-full bg-slate-400"></div>
                   </div> */}
-                  <button className="flex w-full items-center justify-center text-center gap-2 rounded bg-yellow-400 px-4 py-2 text-lg font-medium text-white transition-colors hover:bg-yellow-600">
+                  {/* <button className="flex w-full items-center justify-center text-center gap-2 rounded bg-yellow-400 px-4 py-2 text-lg font-medium text-white transition-colors hover:bg-yellow-600">
+                    YourD Pass로 시작하기    ====== 일단은 주석처리 해둔 부분 ***지우지 말것
+                  </button> */}   
+                <Link to='/project' className="flex w-full items-center justify-center text-center gap-2 rounded bg-yellow-400 px-4 py-2 text-lg font-medium text-white transition-colors hover:bg-yellow-600">
                     YourD Pass로 시작하기
-                  </button>
-
+                  </Link>
                   <div className="mb-2 mt-3 flex items-center gap-2">
                     <div className="h-[1px] w-full bg-slate-400"></div>
                     <span className="text-slate-400">or</span>

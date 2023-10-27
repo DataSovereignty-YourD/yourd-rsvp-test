@@ -7,12 +7,11 @@ import useSessionStorage from "./hooks/sesstionStorage";
 import MainPage from "./pages/mainPage";
 import CreateName from "./components/create/createName";
 import TopBar from "./components/common/topBar";
-import ProjectTopBar from "./pages/navigation/projectTopBar";
+import ProjectTopBar from "./components/common/projectTopBar";
 import CreateDetail from "./components/create/createDetail";
 import CreateRsvp from "./components/create/createRsvp";
 import ListRsvp from "./pages/listRsvp";
 import ProjectDetailPage from "./pages/projectDetailPage";
-import Login from "./pages/login/login";
 import Publish from "./pages/publish";
 import DashBoard from "./pages/dashBoard";
 import SideBar from "./pages/sideBar";
@@ -31,23 +30,20 @@ function App() {
     setIsLoggedInSession(isLoggedIn);
   }, []);
 
-  if (!isLoggedIn) {
-    return (
-      <React.Fragment>
-        <TopBar />
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-
-          <Route path="/createname" element={<CreateName />} />
-          <Route path="/createdetail" element={<CreateDetail />} />
-          <Route path="/creatersvp" element={<CreateRsvp />} />
-          <Route path="/listrsvp" element={<ListRsvp />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/project" element={<ProjectDetailPage />} />
-        </Routes>
-      </React.Fragment>
-    );
-  }
+  // if (!isLoggedIn) {
+  //   return (
+  //     <React.Fragment>
+  //       <TopBar />
+  //       <Routes>
+  //         <Route path="/" element={<MainPage />} />
+  //         <Route path="/createname" element={<CreateName />} />
+  //         <Route path="/createdetail" element={<CreateDetail />} />
+  //         <Route path="/creatersvp" element={<CreateRsvp />} />        
+  //         <Route path="/project" element={<ProjectDetailPage />} />
+  //       </Routes>
+  //     </React.Fragment>
+  //   );
+  // }
 
   return (
     <div>
@@ -59,7 +55,6 @@ function App() {
           <Route path="/createdetail" element={<CreateDetail />} />
           <Route path="/creatersvp" element={<CreateRsvp />} />
           <Route path="/project" element={<ListRsvp />} />
-          {/* <Route path="/project/*" element={<ProjectDetailPage />} /> */}
           <Route path="/project/:id/*" element={<ProjectDetailPage />} />
         </Routes>
       </React.Fragment>

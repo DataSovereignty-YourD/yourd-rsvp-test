@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import useSessionStorage from "../hooks/sesstionStorage";
 import NotFoundPage from "./404Page";
 import CustomRsvp from "./customRsvp";
-import ProjectTopBar from "./navigation/projectTopBar";
+import ProjectTopBar from "../components/common/projectTopBar";
 import Publish from "./publish";
 
 export default function ProjectDetailPage() {
