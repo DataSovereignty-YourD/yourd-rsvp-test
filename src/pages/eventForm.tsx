@@ -39,14 +39,14 @@ function EventForm() {
     switch (currentStep) {
       case 1:
         return <div className="flex flex-col justify-center items-center max-w-5xl mx-auto">
-          <CreatePage/>
+          <CreatePage setEventInfo={setEventInfo}/>
           <div className="flex gap-10 mt-10 w-full justify-end">
             <button onClick={handleNext} className="bg-gray-100 px-4 py-2 ">다음</button>
           </div>
         </div>
       case 2:
         return <div className="flex flex-col justify-center items-center max-w-5xl mx-auto">
-        <CreateDetail/>
+        <CreateDetail setEventInfo={setEventInfo}/>
         <div className="flex gap-10 mt-10 w-full justify-end">
             <button onClick={handlePrev} >이전</button>
             <button onClick={handleNext} className="bg-gray-100 px-4 py-2 ">다음</button>
@@ -54,7 +54,7 @@ function EventForm() {
       </div>
       case 3:
         return <div className="flex flex-col justify-center items-center max-w-5xl mx-auto">
-        <CreateRsvp/>
+        <CreateRsvp eventInfo={eventInfo}/>
         <div className="flex gap-10 mt-10 w-full justify-end">
             <button onClick={handlePrev} >이전</button>
             <button onClick={handleNext} className="bg-gray-100 px-4 py-2 ">생성</button>

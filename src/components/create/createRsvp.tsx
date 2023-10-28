@@ -3,7 +3,7 @@ import { useState } from "react";
 import CurrentPage from "../../pages/currentPage";
 import Login from "../login/login";
 
-function CreateRsvp() {
+function CreateRsvp({eventInfo}:any) {
   const name = localStorage.getItem("invitationName");
   const location = localStorage.getItem("invitationLocation");
   const startDate = localStorage.getItem("invitationStartDate");
