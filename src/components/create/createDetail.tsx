@@ -82,7 +82,7 @@ function TimeSelect({ options, name }: any) {
   );
 }
 
-export default function CreateDetail({setCurrentStep}:any) {
+export default function CreateDetail({setEventInfo}:{setEventInfo:any}) {
   const [location, setLocation] = useState<string>("");
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");

@@ -35,7 +35,7 @@ const Preview = () => {
   );
 };
 
-function CreatePage ({setEventInfo}:any) {
+function CreatePage ({setEventInfo}:{setEventInfo:any}) {
   // 값 저장하기
   const [event, setEvent] = useState({
     eventName: "",
