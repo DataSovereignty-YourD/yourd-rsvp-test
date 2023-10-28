@@ -5,7 +5,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { loginState } from "./recoil/loginState";
 import useSessionStorage from "./hooks/sesstionStorage";
 import MainPage from "./pages/mainPage";
-import CreateName from "./components/create/createName";
+import CreatePage from "./components/create/createPage";
 import TopBar from "./components/common/topBar";
 import ProjectTopBar from "./components/common/projectTopBar";
 import CreateDetail from "./components/create/createDetail";
@@ -38,7 +38,7 @@ function App() {
   //         <Route path="/" element={<MainPage />} />
   //         <Route path="/createname" element={<CreateName />} />
   //         <Route path="/createdetail" element={<CreateDetail />} />
-  //         <Route path="/creatersvp" element={<CreateRsvp />} />        
+  //         <Route path="/creatersvp" element={<CreateRsvp />} />
   //         <Route path="/project" element={<ProjectDetailPage />} />
   //       </Routes>
   //     </React.Fragment>
@@ -51,7 +51,7 @@ function App() {
         <ProjectTopBar />
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/createname" element={<CreateName />} />
+          <Route path="/createpage" element={<CreatePage />} />
           <Route path="/createdetail" element={<CreateDetail />} />
           <Route path="/creatersvp" element={<CreateRsvp />} />
           <Route path="/project" element={<ListRsvp />} />
