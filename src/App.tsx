@@ -5,16 +5,10 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { loginState } from "./recoil/loginState";
 import useSessionStorage from "./hooks/sesstionStorage";
 import MainPage from "./pages/mainPage";
-import CreatePage from "./components/create/createPage";
-import TopBar from "./components/common/topBar";
 import ProjectTopBar from "./components/common/projectTopBar";
-import CreateDetail from "./components/create/createDetail";
-import CreateRsvp from "./components/create/createRsvp";
 import ListRsvp from "./pages/listRsvp";
 import ProjectDetailPage from "./pages/projectDetailPage";
-import Publish from "./pages/publish";
-import DashBoard from "./pages/dashBoard";
-import SideBar from "./pages/sideBar";
+import EventForm from "./pages/eventForm";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
   const [isLoggedinSession, setIsLoggedInSession] = useSessionStorage(
@@ -51,9 +45,7 @@ function App() {
         <ProjectTopBar />
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/createpage" element={<CreatePage />} />
-          <Route path="/createdetail" element={<CreateDetail />} />
-          <Route path="/creatersvp" element={<CreateRsvp />} />
+          <Route path="/eventform" element={<EventForm />} />
           <Route path="/project" element={<ListRsvp />} />
           <Route path="/project/:id/*" element={<ProjectDetailPage />} />
         </Routes>

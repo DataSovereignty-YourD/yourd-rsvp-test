@@ -45,7 +45,7 @@ export default function ListRsvp() {
           </div>
           <div className=" gap-2 flex flex-row">
             <Link
-              to="/createpage"
+              to="/eventform"
               className=" border bg-yellow-500 shadow-md rounded-lg text-white font-bold text-xl px-3 py-2"
             >
               + new rsvp

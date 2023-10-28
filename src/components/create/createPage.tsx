@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import CurrentPage from "../../pages/currentPage";
 import React, { useState } from "react";
+import StepIndicator from "./stepIndicator";
 
 // 로고 이미지 넣기
 const Preview = () => {
@@ -34,12 +35,13 @@ const Preview = () => {
   );
 };
 
-const CreatePage: React.FC = () => {
+function CreatePage () {
   // 값 저장하기
   const [event, setEvent] = useState({
     eventName: "",
     eventPeopleLimit: 0,
   });
+  const [buttonBgColor, setButtonBgColor] = useState<string>("black"); // 배경색 상태 추가
 
   const onChange = (e: any) => {
     const { value, name } = e.target;
@@ -49,13 +51,6 @@ const CreatePage: React.FC = () => {
     });
     console.log(value);
     console.log(name);
-  };
-
-  const [buttonBgColor, setButtonBgColor] = useState<string>("black"); // 배경색 상태 추가
-
-  const navigate = useNavigate();
-  const navigateNext = () => {
-    navigate("/createdetail");
   };
 
   // 입력값이 다 들어오면 배경색이 바뀜
@@ -73,15 +68,15 @@ const CreatePage: React.FC = () => {
 
   return (
     <div
-      className={`gap-8 flex bg-slate-50 mx-32 items-center justify-center h-screen flex-col`}
+      className={`gap-8 flex w-full items-center justify-center h-fit flex-col`}
     >
-      <CurrentPage />
+      {/* <CurrentPage /> */}
       <div className=" flex items-center text-black justify-center  p-5 font-bold text-5xl">
         What is Your Event?
       </div>
-      <div className=" flex flex-row gap-16 ">
+      <div className=" flex flex-row gap-16 w-full justify-between">
         <Preview />
-        <div className=" gap-6 flex flex-col items-center justify-center">
+        <div className=" gap-6 w-full flex flex-col items-center justify-center">
           <div>
             <div className="text-black-500 font-normal">Your RSVP Name</div>
             <div className=" items-center justify-center gap-6 ">
@@ -110,13 +105,6 @@ const CreatePage: React.FC = () => {
           </div>
         </div>
       </div>
-
-      <button
-        className={`mt-12 flex h-12 font-bold text-2xl w-80 uppercase text-yellow-500 bg-${buttonBgColor} justify-center items-center p-4 rounded-md`}
-        onClick={navigateNext}
-      >
-        Next
-      </button>
     </div>
   );
 };

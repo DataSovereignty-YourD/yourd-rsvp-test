@@ -82,47 +82,7 @@ function TimeSelect({ options, name }: any) {
   );
 }
 
-export default function CreateDetail() {
-  const timeOptions = [
-    "08",
-    "09",
-    "10",
-    "11",
-    "12",
-    "13",
-    "14",
-    "15",
-    "16",
-    "17",
-    "18",
-    "19",
-    "20",
-    "21",
-    "22",
-    "23",
-    "24",
-    "01",
-    "02",
-    "03",
-    "04",
-    "05",
-    "06",
-    "07",
-  ];
-  const minuteOptions = [
-    "00",
-    "05",
-    "10",
-    "15",
-    "20",
-    "25",
-    "30",
-    "35",
-    "40",
-    "45",
-    "50",
-    "55",
-  ];
+export default function CreateDetail({setCurrentStep}:any) {
   const [location, setLocation] = useState<string>("");
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
@@ -189,8 +149,7 @@ export default function CreateDetail() {
   };
 
   return (
-    <div className="  gap-12 flex bg-slate-100  mx-32  items-center justify-center h-screen  flex-col">
-      <CurrentPage />
+    <div className="  gap-12 flex w-full  items-center justify-center h-fit  flex-col">
       <div className="gap-6">
         <div className=" flex items-center text-black justify-center p-5 font-semibold text-5xl">
           Detail about Rsvp
@@ -332,20 +291,47 @@ export default function CreateDetail() {
           </div>
         </div>
       </div>
-      <div className="flex flex-row justify-center gap-6">
-        <button
-          className="mt-12 flex w-40 h-12 font-bold text-3xl text-black bg-slate-200  justify-center items-center p-4 rounded-md"
-          onClick={navigatePrev}
-        >
-          Back
-        </button>
-        <button
-          className={`mt-12 flex h-12 font-bold text-2xl w-40 uppercase text-yellow-500 bg-${buttonBgColor} justify-center items-center p-4 rounded-md`}
-          onClick={navigateNext} // onClick 이벤트에 handleSubmit 연결
-        >
-          Next
-        </button>
-      </div>
     </div>
   );
 }
+
+const timeOptions = [
+  "08",
+  "09",
+  "10",
+  "11",
+  "12",
+  "13",
+  "14",
+  "15",
+  "16",
+  "17",
+  "18",
+  "19",
+  "20",
+  "21",
+  "22",
+  "23",
+  "24",
+  "01",
+  "02",
+  "03",
+  "04",
+  "05",
+  "06",
+  "07",
+];
+const minuteOptions = [
+  "00",
+  "05",
+  "10",
+  "15",
+  "20",
+  "25",
+  "30",
+  "35",
+  "40",
+  "45",
+  "50",
+  "55",
+];

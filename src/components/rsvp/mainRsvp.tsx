@@ -32,7 +32,7 @@ export default function MainRsvp() {
         >
           {isLoggedIn ? "Create RSVP" : "Create RSVP"}{" "}
         </button> */}
-         <Link to='/createname'
+         <Link to='/eventform'
           className="flex w-60 h-32  mt-32 justify-center bg-black text-white  font-bold text-xl items-center p-4 rounded-md"
       
         >rsvp생성버튼</Link>
