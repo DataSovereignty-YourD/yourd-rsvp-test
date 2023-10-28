@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import { useRecoilState } from "recoil";
-import { projectModalState } from "../../recoil/dashBoard/project";
+import { eventModalState } from "../../recoil/dashBoard/project";
 import React, { useEffect, useState } from "react";
 import { sideBarToggleState } from "../../recoil/sideBarToggle";
 import classNames from "classnames";
@@ -23,7 +23,7 @@ import { PiUserCircle } from "react-icons/pi";
 export default function ProjectTopBar() {
   const location = useLocation();
   const navigation = useNavigate();
-  const [isOpen, setIsOpen] = useRecoilState(projectModalState);
+  const [isOpen, setIsOpen] = useRecoilState(eventModalState);
   const [isSidebarVisible, setSidebarVisible] =
     useRecoilState(sideBarToggleState);
   const [isSearchBarVisible, setSearchBarVisible] = useState(false);

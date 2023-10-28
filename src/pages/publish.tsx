@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { projectType } from "../recoil/dashBoard/project";
+
 import { Link } from "react-router-dom";
 import Logo from "../assets/img/YourD-Logo-high.png";
 
@@ -33,7 +33,7 @@ export default function Publish() {
         Publish RSVP
       </h1>
       <div className="   w-full h-screen flex flex-col gap-12 items-center justify-center ">
-        <div className="  bg-slate-50 w-2/3 h-1/2 rounded-2xl shadow-2xl">
+        <div className="  bg-slate-50 w-2/3 h-2/3 rounded-2xl shadow-2xl">
           <div className="   mt-3  flex items-center text-black justify-center uppercase  p-5 font-bold text-5xl">
             {name}
           </div>
@@ -91,7 +91,7 @@ export default function Publish() {
               {location}
             </div>
           </div>
-          <div className=" mt-48 flex items-center justify-center  bg-black text-yellow-300">
+          <div className="  flex items-center justify-center  bg-black text-yellow-300">
             <Link
               to="dashboard"
               className="  gap-2  p-5 items-center justify-between flex flex-col font-bold text-xl"

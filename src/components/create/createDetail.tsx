@@ -6,6 +6,15 @@ import DaumPostcode from "react-daum-postcode";
 import "react-calendar/dist/Calendar.css";
 
 function MyCalendar({ setDate, setVisible }: any) {
+  const [event, setEvent] = useState({
+    startEventDate: "",
+    endEventDate: "",
+    startEventTime: 0,
+    startEventMinute: 0,
+    endEventTime: 0,
+    endEventMinute: 0,
+    eventLocation: "",
+  });
   const onChange = (newDate: Date | Date[]) => {
     if (Array.isArray(newDate)) {
       return;
@@ -20,12 +29,30 @@ function MyCalendar({ setDate, setVisible }: any) {
   return <Calendar onChange={onChange as any} />;
 }
 
-function TimeSelect({ selectedTime, setSelectedTime, options }: any) {
+function TimeSelect({ options, name }: any) {
+  const [event, setEvent] = useState({
+    startEventDate: "",
+    endEventDate: "",
+    startEventTime: 0,
+    startEventMinute: 0,
+    endEventTime: 0,
+    endEventMinute: 0,
+    eventLocation: "",
+  });
+  const onChange = (e: any) => {
+    const { value, name } = e.target;
+    setEvent({
+      ...event,
+      [name]: value,
+    });
+    console.log(name);
+    console.log(value);
+  };
   return (
     <select
       className="border border-gray-300 rounded px-3 py-2"
-      value={selectedTime}
-      onChange={(e) => setSelectedTime(e.target.value)}
+      name={name}
+      onChange={onChange}
     >
       {options.map((option: string) => (
         <option key={option} value={option}>
@@ -77,24 +104,34 @@ export default function CreateDetail() {
     "50",
     "55",
   ];
-
   const [location, setLocation] = useState<string>("");
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
-  const [startTime, setStartTime] = useState<string>("");
-  const [endTime, setEndTime] = useState<string>("");
-  const [startMinute, setStartMinute] = useState<string>("");
-  const [endMinute, setEndMinute] = useState<string>("");
   const navigate = useNavigate();
-  const [date, setDate] = useState(new Date());
   const [isCalendarStartVisible, setCalendarStartVisible] = useState(false);
   const [isCalendarEndVisible, setCalendarEndVisible] = useState(false);
-  const [selectedStartTime, setSelectedStartTime] = useState<string>("");
-  const [selectedEndTime, setSelectedEndTime] = useState<string>("");
-  const [selectedStartMinute, setSelectedStartMinute] = useState<string>("");
-  const [selectedEndMinute, setSelectedEndMinute] = useState<string>("");
   const [openPostcode, setOpenPostcode] = React.useState<boolean>(false);
   const [buttonBgColor, setButtonBgColor] = useState<string>("black"); // 배경색 상태 추가
+
+  const [event, setEvent] = useState({
+    startEventDate: "",
+    endEventDate: "",
+    startEventTime: 0,
+    startEventMinute: 0,
+    endEventTime: 0,
+    endEventMinute: 0,
+    eventLocation: "",
+  });
+
+  const onChange = (e: any) => {
+    const { value, name } = e.target;
+    setEvent({
+      ...event,
+      [name]: value,
+    });
+    console.log(value);
+    console.log(name);
+  };
 
   const handle = {
     // 버튼 클릭 이벤트
@@ -110,17 +147,26 @@ export default function CreateDetail() {
   };
 
   const checkInputValidity = () => {
-    if (startDate && endDate && startMinute && endMinute && location) {
+    if (
+      event.startEventDate &&
+      event.endEventDate &&
+      event.startEventTime &&
+      event.endEventTime &&
+      event.startEventMinute &&
+      event.endEventMinute &&
+      event.eventLocation
+    ) {
       setButtonBgColor("black");
     } else {
       setButtonBgColor("white");
     }
   };
+  const navigatePrev = () => {
+    navigate("/createpage");
+  };
 
-  const handleSubmit = () => {
-    // URL 쿼리 매개변수를 사용하여 값을 다음 페이지로 전달
-    const queryParams = `?startDate=${startDate}&startMinute=${startMinute}&endDate=${endDate}&endMinute=${endMinute}&location=${location}`;
-    navigate(`/creatersvp${queryParams}`);
+  const navigateNext = () => {
+    navigate(`/creatersvp`);
   };
 
   return (
@@ -142,10 +188,11 @@ export default function CreateDetail() {
           <div className=" items-center justify-center  grid grid-cols-6 flex-row gap-6 ">
             <div className="col-span-4">
               <input
-                className="  border-b-4  border-blue-600 rounded  h-12 p-4 w-full"
+                name="startEventDate"
+                className="border-b-4  border-blue-600 rounded  h-12 p-4 w-full"
                 placeholder="시작 날짜"
-                value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
+                value={event.startEventDate}
+                onChange={onChange}
                 onClick={() => setCalendarStartVisible(!isCalendarStartVisible)}
               />
               {isCalendarStartVisible && (
@@ -163,9 +210,8 @@ export default function CreateDetail() {
                 <div className="flex items-center justify-center">Hour</div>
 
                 <TimeSelect
-                  value={startTime}
-                  selectedTime={selectedStartTime}
-                  setSelectedTime={setSelectedStartTime}
+                  name="startEventTime"
+                  value={event.startEventTime}
                   options={timeOptions}
                 />
               </div>
@@ -174,9 +220,9 @@ export default function CreateDetail() {
               <div>
                 <div className="flex items-center justify-center">Minutes</div>
                 <TimeSelect
-                  value={startMinute}
-                  selectedTime={selectedStartMinute}
-                  setSelectedTime={setSelectedStartMinute}
+                  name="endEventMinute"
+                  onChange={onChange}
+                  value={event.endEventMinute}
                   options={minuteOptions}
                 />
               </div>
@@ -189,10 +235,11 @@ export default function CreateDetail() {
           <div className=" items-center justify-center  grid grid-cols-6 flex-row gap-6 ">
             <div className="col-span-4">
               <input
+                name="endEventDate"
                 className="  border-b-4  border-blue-600 rounded w-full h-12 p-4"
                 placeholder="종료 날짜"
-                value={endDate}
-                onChange={(e) => setEndDate(e.target.value)}
+                value={event.endEventDate}
+                onChange={onChange}
                 onClick={() => setCalendarEndVisible(!isCalendarEndVisible)}
               />
               {isCalendarEndVisible && (
@@ -208,10 +255,10 @@ export default function CreateDetail() {
               <div>
                 <div className="flex items-center justify-center">Hour</div>
                 <TimeSelect
-                  value={endTime}
-                  selectedTime={selectedEndTime}
-                  setSelectedTime={setSelectedEndTime}
+                  name="endEventTime"
+                  value={event.endEventTime}
                   options={timeOptions}
+                  onChange={onChange}
                 />
               </div>
             </div>
@@ -219,10 +266,10 @@ export default function CreateDetail() {
               <div>
                 <div className="flex items-center justify-center">Minutes</div>
                 <TimeSelect
-                  value={endMinute}
-                  selectedTime={selectedEndMinute}
-                  setSelectedTime={setSelectedEndMinute}
+                  name="endEventMinute"
+                  value={event.endEventMinute}
                   options={minuteOptions}
+                  onChange={onChange}
                 />
               </div>
             </div>
@@ -233,12 +280,14 @@ export default function CreateDetail() {
 
           <div className=" items-center justify-center w-full flex-row gap-6 ">
             <input
+              name="eventLocation"
               type="text"
               className="border-b-4  border-blue-600 rounded w-full h-12 p-4"
               placeholder="위치"
-              value={location}
+              value={event.eventLocation}
               readOnly // 이 부분을 추가하여 input을 읽기 전용으로 만듭니다.
               onClick={handle.clickButton}
+              onChange={onChange}
             />
 
             {openPostcode && (
@@ -251,12 +300,15 @@ export default function CreateDetail() {
         </div>
       </div>
       <div className="flex flex-row justify-center gap-6">
-        <button className="mt-12 flex w-40 h-12 font-bold text-3xl text-black bg-slate-200  justify-center items-center p-4 rounded-md">
+        <button
+          className="mt-12 flex w-40 h-12 font-bold text-3xl text-black bg-slate-200  justify-center items-center p-4 rounded-md"
+          onClick={navigatePrev}
+        >
           Back
         </button>
         <button
           className={`mt-12 flex h-12 font-bold text-2xl w-40 uppercase text-yellow-500 bg-${buttonBgColor} justify-center items-center p-4 rounded-md`}
-          onClick={handleSubmit} // onClick 이벤트에 handleSubmit 연결
+          onClick={navigateNext} // onClick 이벤트에 handleSubmit 연결
         >
           Next
         </button>

@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useSessionStorage from "../hooks/sesstionStorage";
 import NotFoundPage from "./404Page";
-import CustomRsvp from "./customRsvp";
 import ProjectTopBar from "../components/common/projectTopBar";
 import Publish from "./publish";
 
@@ -26,7 +25,6 @@ export default function ProjectDetailPage() {
         <Routes>
           <Route path="/" element={<Publish />} />
           <Route path="/dashboard" element={<DashBoard />} />
-          <Route path="/custom" element={<CustomRsvp />} />
         </Routes>
       </div>
     </div>
