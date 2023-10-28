@@ -4,6 +4,8 @@ import Calendar from "react-calendar";
 import CurrentPage from "../../pages/currentPage";
 import DaumPostcode from "react-daum-postcode";
 import "react-calendar/dist/Calendar.css";
+import { startOptimizedAppearAnimation } from "framer-motion";
+import { validateHeaderValue } from "http";
 
 function MyCalendar({ setDate, setVisible }: any) {
   const [event, setEvent] = useState({
@@ -15,18 +17,35 @@ function MyCalendar({ setDate, setVisible }: any) {
     endEventMinute: 0,
     eventLocation: "",
   });
+
+  const today = new Date(); // 현재 날짜를 가져옵니다.
+
   const onChange = (newDate: Date | Date[]) => {
     if (Array.isArray(newDate)) {
       return;
     }
+
+    // 선택한 날짜가 현재 날짜보다 이전인지 확인합니다.
+    if (newDate < today) {
+      // 현재 날짜 이전이라면 아무 작업도 수행하지 않습니다.
+      return;
+    }
+
     const formattedDate = `${
       newDate.getMonth() + 1
     }월 ${newDate.getDate()}일 ${newDate.getFullYear()}년`;
-    setDate(formattedDate);
+
+    // startEventDate 상태를 업데이트
+    setEvent({
+      ...event,
+      startEventDate: formattedDate,
+    });
+
+    // setVisible 함수를 호출하여 달력을 숨깁니다.
     setVisible(false);
   };
 
-  return <Calendar onChange={onChange as any} />;
+  return <Calendar onChange={onChange as any} minDate={today} />;
 }
 
 function TimeSelect({ options, name }: any) {
@@ -191,13 +210,14 @@ export default function CreateDetail() {
                 name="startEventDate"
                 className="border-b-4  border-blue-600 rounded  h-12 p-4 w-full"
                 placeholder="시작 날짜"
-                value={event.startEventDate}
+                value={startDate}
                 onChange={onChange}
                 onClick={() => setCalendarStartVisible(!isCalendarStartVisible)}
               />
               {isCalendarStartVisible && (
                 <div className="absolute bg-white border border-gray-300">
                   <MyCalendar
+                    name="startEventDate"
                     setDate={setStartDate}
                     setVisible={setCalendarStartVisible}
                   />
@@ -221,7 +241,6 @@ export default function CreateDetail() {
                 <div className="flex items-center justify-center">Minutes</div>
                 <TimeSelect
                   name="endEventMinute"
-                  onChange={onChange}
                   value={event.endEventMinute}
                   options={minuteOptions}
                 />
@@ -245,6 +264,7 @@ export default function CreateDetail() {
               {isCalendarEndVisible && (
                 <div className="absolute bg-white border border-gray-300">
                   <MyCalendar
+                    name="endEventDate"
                     setDate={setEndDate}
                     setVisible={setCalendarEndVisible}
                   />
@@ -258,7 +278,6 @@ export default function CreateDetail() {
                   name="endEventTime"
                   value={event.endEventTime}
                   options={timeOptions}
-                  onChange={onChange}
                 />
               </div>
             </div>
@@ -269,7 +288,6 @@ export default function CreateDetail() {
                   name="endEventMinute"
                   value={event.endEventMinute}
                   options={minuteOptions}
-                  onChange={onChange}
                 />
               </div>
             </div>
@@ -282,17 +300,32 @@ export default function CreateDetail() {
             <input
               name="eventLocation"
               type="text"
-              className="border-b-4  border-blue-600 rounded w-full h-12 p-4"
+              className="border-b-4 border-blue-600 rounded w-full h-12 p-4"
               placeholder="위치"
               value={event.eventLocation}
-              readOnly // 이 부분을 추가하여 input을 읽기 전용으로 만듭니다.
+              readOnly
               onClick={handle.clickButton}
-              onChange={onChange}
+              onChange={(e) => {
+                // input을 읽기 전용으로 만들었으므로 이벤트 핸들러에서 값을 업데이트하지 않습니다.
+              }}
             />
 
             {openPostcode && (
               <DaumPostcode
-                onComplete={handle.selectAddress}
+                onComplete={(data) => {
+                  const name = "eventLocation"; // input 요소의 name
+                  const value = data.address; // 주소 데이터에서 가져온 값을 사용
+                  handle.selectAddress({ [name]: value });
+
+                  // 주소를 선택하면 eventLocation을 업데이트합니다.
+                  const updatedEvent = {
+                    ...event,
+                    [name]: value,
+                  };
+                  console.log(name); // 콘솔에 업데이트된 eventLocation 출력
+                  console.log(value); //
+                  setEvent(updatedEvent);
+                }}
                 autoClose={false}
               />
             )}
