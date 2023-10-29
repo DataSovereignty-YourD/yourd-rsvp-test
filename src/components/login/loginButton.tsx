@@ -1,18 +1,25 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { useRecoilState} from 'recoil';
-import { loginState } from '../../recoil/loginState';
+
+import { FiAlertCircle } from 'react-icons/fi';
 import { useEffect, useState } from 'react';
 import {
   AiOutlineArrowRight,
   AiFillEye,
   AiFillEyeInvisible,
 } from 'react-icons/ai';
-export default function Login({ initialOpen }: { initialOpen: boolean }) {
+import '../../assets/css/login.css';
+export default function LoginButton() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isEyeClick, setIsEyeClick] = useState(false);
   return (
-    <div className=" grid place-content-center">
+    <div className="grid place-content-center">
+      <button
+        onClick={() => setIsOpen(true)}
+        className="bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-medium px-4 py-2 rounded hover:opacity-90 transition-opacity"
+      >
+        sign In
+      </button>
       <SpringModal isOpen={isOpen} setIsOpen={setIsOpen} />
     </div>
   );
@@ -22,35 +29,24 @@ const SpringModal: React.FC<{
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
 }> = ({ isOpen, setIsOpen }) => {
-  const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
   const [showNewContent, setShowNewContent] = useState(false);
   const [isEyeClick, setIsEyeClick] = useState(false);
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    // 로그인 로직이 여기에 들어갑니다.
-    // 예를 들어, 서버에 로그인 요청을 보내고 응답을 기다리는 로직입니다.
-
-    // 로그인이 성공적으로 완료되면:
-    setIsLoggedIn(true);
-    setIsOpen(false); // 모달을 닫습니다.
-  };
   return (
     <AnimatePresence>
       {isOpen && (
         <motion.div
-        
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={() => setIsOpen(false)}
-          className="bg-slate-400/20 backdrop-blur p-8 fixed inset-0 z-50 grid place-items-center overflow-y-scroll cursor-pointer"
+          className="bg-slate-400/20 backdrop-blur p-8 fixed inset-0 z-50 grid place-items-center overflow-y-scroll cursor-pointer overflow-visible "
         >
           <motion.div
             initial={{ scale: 0, rotate: '12.5deg' }}
             animate={{ scale: 1, rotate: '0deg' }}
             exit={{ scale: 0, rotate: '0deg' }}
             onClick={(e: React.MouseEvent) => e.stopPropagation()}
-            className="bg-white text-white p-6 rounded-lg w-full max-w-lg shadow-xl cursor-default relative overflow-hidden"
+            className="bg-white text-white p-6 rounded-lg w-full max-w-lg shadow-xl cursor-default relative"
           >
             <div className="relative z-10">
               <div className="mb-2 text-4xl text-black font-bold grid place-items-center mx-auto">

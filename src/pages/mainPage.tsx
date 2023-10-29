@@ -12,7 +12,6 @@ export default function MainPage() {
       <MainRsvp />
       <RsvpFeatures />
       <RsvpUsecase />
-      <Login/>
       <Footer />
       
     </>
