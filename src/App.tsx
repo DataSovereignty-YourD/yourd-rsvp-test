@@ -5,7 +5,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { loginState } from "./recoil/loginState";
 import useSessionStorage from "./hooks/sesstionStorage";
 import MainPage from "./pages/mainPage";
-import ProjectTopBar from "./components/common/projectTopBar";
+import TopBar from "./components/common/topBar";
 import ListRsvp from "./pages/listRsvp";
 import ProjectDetailPage from "./pages/projectDetailPage";
 import EventForm from "./pages/eventForm";
@@ -42,7 +42,7 @@ function App() {
   return (
     <div>
       <React.Fragment>
-        <ProjectTopBar />
+        <TopBar />
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/eventform" element={<EventForm />} />

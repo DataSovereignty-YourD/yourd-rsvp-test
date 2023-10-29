@@ -66,7 +66,7 @@ function CreateRsvp({eventInfo}:{eventInfo:any}) {
       >
         URL 생성하기
       </button>
-      {showLogin && <Login />} 
+      {showLogin && <Login initialOpen={showLogin} />} 
     </div>//일단 모달창이 바로 뜨게는 만들었는데 ****수정필요 
   );
 };
