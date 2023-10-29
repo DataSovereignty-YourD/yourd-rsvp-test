@@ -3,14 +3,15 @@ import { Link } from 'react-router-dom';
 import { useRecoilState} from 'recoil';
 import { loginState } from '../../recoil/loginState';
 import { useEffect, useState } from 'react';
-import {
+import {  
   AiOutlineArrowRight,
   AiFillEye,
   AiFillEyeInvisible,
 } from 'react-icons/ai';
 export default function Login({ initialOpen }: { initialOpen: boolean }) {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(true);
   const [isEyeClick, setIsEyeClick] = useState(false);
+
   return (
     <div className=" grid place-content-center">
       <SpringModal isOpen={isOpen} setIsOpen={setIsOpen} />

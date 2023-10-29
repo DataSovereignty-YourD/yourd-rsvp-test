@@ -1,19 +1,19 @@
-import qr from "../assets/img/qr.png";
-import bgImg from "../assets/img/background1.png";
-import MainRsvp from "../components/rsvp/mainRsvp";
-import RsvpFeatures from "../components/rsvp/rsvpFeatures";
-import RsvpUsecase from "../components/rsvp/rsvpUsecase";
+import MainHero from "../components/main/mainhero";
+import Usecase from "../components/main/usecase";
 import Footer from "../components/common/footer";
-import Login from "../components/login/login";
+import Login from "../components/common/login";
+import QrFeature from "../components/main/qrFeature";
+import EasyFeature from "../components/main/easyFeature";
 
 export default function MainPage() {
   return (
     <>
-      <MainRsvp />
-      <RsvpFeatures />
-      <RsvpUsecase />
+      <MainHero />
+      <QrFeature />
+      <EasyFeature />
+      <Usecase />
+      <Login initialOpen={true}/>
       <Footer />
-      
     </>
   );
 }

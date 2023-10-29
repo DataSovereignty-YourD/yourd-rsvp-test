@@ -7,8 +7,8 @@ import useSessionStorage from "./hooks/sesstionStorage";
 import MainPage from "./pages/mainPage";
 import TopBar from "./components/common/topBar";
 import ListRsvp from "./pages/listRsvp";
-import ProjectDetailPage from "./pages/projectDetailPage";
 import EventForm from "./pages/eventForm";
+import EventDetailPage from "./pages/eventDetail/eventDetailPage";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
   const [isLoggedinSession, setIsLoggedInSession] = useSessionStorage(
@@ -24,20 +24,6 @@ function App() {
     setIsLoggedInSession(isLoggedIn);
   }, []);
 
-  // if (!isLoggedIn) {
-  //   return (
-  //     <React.Fragment>
-  //       <TopBar />
-  //       <Routes>
-  //         <Route path="/" element={<MainPage />} />
-  //         <Route path="/createname" element={<CreateName />} />
-  //         <Route path="/createdetail" element={<CreateDetail />} />
-  //         <Route path="/creatersvp" element={<CreateRsvp />} />
-  //         <Route path="/project" element={<ProjectDetailPage />} />
-  //       </Routes>
-  //     </React.Fragment>
-  //   );
-  // }
 
   return (
     <div>
@@ -47,7 +33,7 @@ function App() {
           <Route path="/" element={<MainPage />} />
           <Route path="/eventform" element={<EventForm />} />
           <Route path="/project" element={<ListRsvp />} />
-          <Route path="/project/:id/*" element={<ProjectDetailPage />} />
+          <Route path="/project/:id/*" element={<EventDetailPage />} />
         </Routes>
       </React.Fragment>
     </div>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-import Path from "../components/project/path";
+import Path from "../../components/common/path";
 import { BiSolidUserCircle } from "react-icons/bi";
 import {
   AiOutlineArrowDown,

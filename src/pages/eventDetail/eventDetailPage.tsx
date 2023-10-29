@@ -1,13 +1,13 @@
-import SideBar from "./sideBar";
+import SideBar from "../sideBar";
 import DashBoard from "./dashBoard";
 import { Route, Routes } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import useSessionStorage from "../hooks/sesstionStorage";
-import NotFoundPage from "./404Page";
-import Publish from "./publish";
+import useSessionStorage from "../../hooks/sesstionStorage";
+import NotFoundPage from "../404Page";
+import Publish from "./eventregister";
 
-export default function ProjectDetailPage() {
+export default function EventDetailPage() {
   const [showNotFound, setShowNotFound] = useState(false);
   const [projectIndex, setProjectIndex] = useState(0);
   const { id } = useParams();

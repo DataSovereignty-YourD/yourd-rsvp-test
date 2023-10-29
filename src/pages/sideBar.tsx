@@ -82,8 +82,6 @@ export default function SideBar() {
     </div>
   );
 
-  // ... (이전 코드와 동일)
-
   return (
     <div className="w-44 h-full   z-1 bg-slate-200 flex-col  ">
       <div className="flex items-center justify-center font-bold text-2xl pt-8 pb-8">

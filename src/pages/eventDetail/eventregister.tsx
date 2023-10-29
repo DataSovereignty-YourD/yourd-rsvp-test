@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import { Link } from "react-router-dom";
-import Logo from "../assets/img/YourD-Logo-high.png";
+import Logo from "../../assets/img/YourD-Logo-high.png";
 
-import Path from "../components/project/path";
+import Path from "../../components/common/path";
 import { BiSolidUserCircle } from "react-icons/bi";
 import {
   AiOutlineArrowDown,

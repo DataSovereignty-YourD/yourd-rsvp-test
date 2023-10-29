@@ -4,8 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { loginState } from "../../recoil/loginState";
-import Login from "../login/login";
-export default function MainRsvp() {
+export default function MainHeroSection() {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
 

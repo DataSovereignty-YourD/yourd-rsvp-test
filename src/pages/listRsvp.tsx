@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { BiSolidCopy, BiSearch } from "react-icons/bi";
 import logo from "../assets/img/YourD_Logo.jpg";
+import SelectImage from "../components/create/selectImage";
 
 export default function ListRsvp() {
   const [projects, setProjects] = useState<any>([]); //프로젝트에 대한 간략한 정보만 가져오도록 해야함 Link통해서 프로젝트 정보 넘기고 자세한 데이터는 해당 페이지에서 호출하도록 해야함
@@ -72,6 +73,7 @@ export default function ListRsvp() {
               </div>
             </button>
           ))}
+          <SelectImage/>
         </div>
 
         <div className=" w-full h-fit value">
