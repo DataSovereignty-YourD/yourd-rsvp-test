@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useSessionStorage from "../hooks/sesstionStorage";
 import NotFoundPage from "./404Page";
-import ProjectTopBar from "../components/common/projectTopBar";
 import Publish from "./publish";
 
 export default function ProjectDetailPage() {
