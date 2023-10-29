@@ -12,7 +12,6 @@ export default function MainPage() {
       <QrFeature />
       <EasyFeature />
       <Usecase />
-      <Login initialOpen={true}/>
       <Footer />
     </>
   );
