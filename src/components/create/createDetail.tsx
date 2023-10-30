@@ -7,73 +7,23 @@ import "react-calendar/dist/Calendar.css";
 import { startOptimizedAppearAnimation } from "framer-motion";
 import { validateHeaderValue } from "http";
 
-function MyCalendar({ setDate, setVisible }: any) {
-  const [event, setEvent] = useState({
-    startEventDate: "",
-    endEventDate: "",
-    startEventTime: 0,
-    startEventMinute: 0,
-    endEventTime: 0,
-    endEventMinute: 0,
-    eventLocation: "",
-  });
-
-  const today = new Date(); // 현재 날짜를 가져옵니다.
-
-  const onChange = (newDate: Date | Date[]) => {
-    if (Array.isArray(newDate)) {
-      return;
-    }
-
-    // 선택한 날짜가 현재 날짜보다 이전인지 확인합니다.
-    if (newDate < today) {
-      // 현재 날짜 이전이라면 아무 작업도 수행하지 않습니다.
-      return;
-    }
-
-    const formattedDate = `${
-      newDate.getMonth() + 1
-    }월 ${newDate.getDate()}일 ${newDate.getFullYear()}년`;
-
-    // startEventDate 상태를 업데이트
-    setEvent({
-      ...event,
-      startEventDate: formattedDate,
-    });
-
-    // setVisible 함수를 호출하여 달력을 숨깁니다.
-    setVisible(false);
-  };
-
-  return <Calendar onChange={onChange as any} minDate={today} />;
-}
-
-function TimeSelect({ options, name }: any) {
-  const [event, setEvent] = useState({
-    startEventDate: "",
-    endEventDate: "",
-    startEventTime: 0,
-    startEventMinute: 0,
-    endEventTime: 0,
-    endEventMinute: 0,
-    eventLocation: "",
-  });
+function TimeSelect({ options, name, setEventInfo, value }: any) {
   const onChange = (e: any) => {
-    const { value, name } = e.target;
-    setEvent({
-      ...event,
+    const { value } = e.target;
+    setEventInfo((prevEventInfo: any) => ({
+      ...prevEventInfo,
       [name]: value,
-    });
-    console.log(name);
-    console.log(value);
+    }));
   };
+
   return (
     <select
       className="border border-gray-300 rounded px-3 py-2"
       name={name}
+      value={value}
       onChange={onChange}
     >
-      {options.map((option: string) => (
+      {options.map((option: any) => (
         <option key={option} value={option}>
           {option}
         </option>
@@ -82,35 +32,58 @@ function TimeSelect({ options, name }: any) {
   );
 }
 
-export default function CreateDetail({setEventInfo}:{setEventInfo:any}) {
+export default function CreateDetail({ setEventInfo }: { setEventInfo: any }) {
   const [location, setLocation] = useState<string>("");
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
+  const [startTime, setStartTime] = useState<string>("");
+  const [endTime, setEndTime] = useState<string>("");
+  const [startMinute, setStartMinute] = useState<string>("");
+  const [endMinute, setEndMinute] = useState<string>("");
   const navigate = useNavigate();
   const [isCalendarStartVisible, setCalendarStartVisible] = useState(false);
   const [isCalendarEndVisible, setCalendarEndVisible] = useState(false);
   const [openPostcode, setOpenPostcode] = React.useState<boolean>(false);
-  const [buttonBgColor, setButtonBgColor] = useState<string>("black"); // 배경색 상태 추가
 
-  const [event, setEvent] = useState({
-    startEventDate: "",
-    endEventDate: "",
-    startEventTime: 0,
-    startEventMinute: 0,
-    endEventTime: 0,
-    endEventMinute: 0,
-    eventLocation: "",
-  });
+  function MyCalendar({
+    setEventInfo,
+    selectedDateType, // 'startDate' 또는 'endDate'인지 식별
+    setVisible, // 달력 닫기 함수
+  }: any) {
+    const today = new Date();
+    const isStartDate = selectedDateType === "startDate";
 
-  const onChange = (e: any) => {
-    const { value, name } = e.target;
-    setEvent({
-      ...event,
-      [name]: value,
-    });
-    console.log(value);
-    console.log(name);
-  };
+    const onChange = (newDate: any) => {
+      if (Array.isArray(newDate)) {
+        return;
+      }
+
+      if (newDate < today) {
+        return;
+      }
+
+      const formattedDate = `${
+        newDate.getMonth() + 1
+      }월 ${newDate.getDate()}일 ${newDate.getFullYear()}년`;
+
+      // startDate 또는 endDate를 업데이트
+      setEventInfo((prevEventInfo: any) => ({
+        ...prevEventInfo,
+        [isStartDate ? "startDate" : "endDate"]: formattedDate,
+      }));
+
+      if (isStartDate) {
+        setStartDate(formattedDate);
+      } else {
+        setEndDate(formattedDate);
+      }
+
+      // 날짜를 선택한 후 창 닫기
+      setVisible(false);
+    };
+
+    return <Calendar onChange={onChange} minDate={today} />;
+  }
 
   const handle = {
     // 버튼 클릭 이벤트
@@ -120,32 +93,17 @@ export default function CreateDetail({setEventInfo}:{setEventInfo:any}) {
 
     // 주소 선택 이벤트
     selectAddress: (data: any) => {
-      setLocation(data.address); // 선택된 주소를 state에 할당
+      const name = "eventLocation"; // input 요소의 name
+      const value = data.address; // 주소 데이터에서 가져온 값을 사용
+
+      // 주소를 선택하면 eventLocation을 업데이트합니다.
+      setEventInfo((prevEventInfo: any) => ({
+        ...prevEventInfo,
+        [name]: value,
+      }));
+      setLocation(value);
       setOpenPostcode(false);
     },
-  };
-
-  const checkInputValidity = () => {
-    if (
-      event.startEventDate &&
-      event.endEventDate &&
-      event.startEventTime &&
-      event.endEventTime &&
-      event.startEventMinute &&
-      event.endEventMinute &&
-      event.eventLocation
-    ) {
-      setButtonBgColor("black");
-    } else {
-      setButtonBgColor("white");
-    }
-  };
-  const navigatePrev = () => {
-    navigate("/createpage");
-  };
-
-  const navigateNext = () => {
-    navigate(`/creatersvp`);
   };
 
   return (
@@ -166,19 +124,19 @@ export default function CreateDetail({setEventInfo}:{setEventInfo:any}) {
           <div className=" items-center justify-center  grid grid-cols-6 flex-row gap-6 ">
             <div className="col-span-4">
               <input
-                name="startEventDate"
+                name="startDate"
                 className="border-b-4  border-blue-600 rounded  h-12 p-4 w-full"
                 placeholder="시작 날짜"
                 value={startDate}
-                onChange={onChange}
+                readOnly
                 onClick={() => setCalendarStartVisible(!isCalendarStartVisible)}
               />
               {isCalendarStartVisible && (
                 <div className="absolute bg-white border border-gray-300">
                   <MyCalendar
-                    name="startEventDate"
-                    setDate={setStartDate}
-                    setVisible={setCalendarStartVisible}
+                    setEventInfo={setEventInfo}
+                    selectedDateType="startDate"
+                    setVisible={setCalendarStartVisible} // 달력에서 날짜를 선택하면 달력을 숨기도록 추가
                   />
                 </div>
               )}
@@ -189,8 +147,8 @@ export default function CreateDetail({setEventInfo}:{setEventInfo:any}) {
                 <div className="flex items-center justify-center">Hour</div>
 
                 <TimeSelect
-                  name="startEventTime"
-                  value={event.startEventTime}
+                  name="startTime"
+                  setEventInfo={setEventInfo}
                   options={timeOptions}
                 />
               </div>
@@ -199,8 +157,8 @@ export default function CreateDetail({setEventInfo}:{setEventInfo:any}) {
               <div>
                 <div className="flex items-center justify-center">Minutes</div>
                 <TimeSelect
-                  name="endEventMinute"
-                  value={event.endEventMinute}
+                  name="startMinute"
+                  setEventInfo={setEventInfo}
                   options={minuteOptions}
                 />
               </div>
@@ -213,19 +171,19 @@ export default function CreateDetail({setEventInfo}:{setEventInfo:any}) {
           <div className=" items-center justify-center  grid grid-cols-6 flex-row gap-6 ">
             <div className="col-span-4">
               <input
-                name="endEventDate"
-                className="  border-b-4  border-blue-600 rounded w-full h-12 p-4"
+                name="endDate"
+                className="border-b-4  border-blue-600 rounded  h-12 p-4 w-full"
                 placeholder="종료 날짜"
-                value={event.endEventDate}
-                onChange={onChange}
+                value={endDate}
+                readOnly
                 onClick={() => setCalendarEndVisible(!isCalendarEndVisible)}
               />
               {isCalendarEndVisible && (
                 <div className="absolute bg-white border border-gray-300">
                   <MyCalendar
-                    name="endEventDate"
-                    setDate={setEndDate}
-                    setVisible={setCalendarEndVisible}
+                    setEventInfo={setEventInfo}
+                    selectedDateType="endDate"
+                    setVisible={setCalendarEndVisible} // 달력에서 날짜를 선택하면 달력을 숨기도록 추가
                   />
                 </div>
               )}
@@ -234,8 +192,8 @@ export default function CreateDetail({setEventInfo}:{setEventInfo:any}) {
               <div>
                 <div className="flex items-center justify-center">Hour</div>
                 <TimeSelect
-                  name="endEventTime"
-                  value={event.endEventTime}
+                  name="endTime"
+                  setEventInfo={setEventInfo}
                   options={timeOptions}
                 />
               </div>
@@ -244,8 +202,8 @@ export default function CreateDetail({setEventInfo}:{setEventInfo:any}) {
               <div>
                 <div className="flex items-center justify-center">Minutes</div>
                 <TimeSelect
-                  name="endEventMinute"
-                  value={event.endEventMinute}
+                  name="endMinute"
+                  setEventInfo={setEventInfo}
                   options={minuteOptions}
                 />
               </div>
@@ -254,36 +212,19 @@ export default function CreateDetail({setEventInfo}:{setEventInfo:any}) {
         </div>
         <div>
           <div>Location</div>
-
-          <div className=" items-center justify-center w-full flex-row gap-6 ">
+          <div className="flex-row gap-6">
             <input
-              name="eventLocation"
-              type="text"
               className="border-b-4 border-blue-600 rounded w-full h-12 p-4"
               placeholder="위치"
-              value={event.eventLocation}
               readOnly
+              value={location}
               onClick={handle.clickButton}
-              onChange={(e) => {
-                // input을 읽기 전용으로 만들었으므로 이벤트 핸들러에서 값을 업데이트하지 않습니다.
-              }}
             />
 
             {openPostcode && (
               <DaumPostcode
                 onComplete={(data) => {
-                  const name = "eventLocation"; // input 요소의 name
-                  const value = data.address; // 주소 데이터에서 가져온 값을 사용
-                  handle.selectAddress({ [name]: value });
-
-                  // 주소를 선택하면 eventLocation을 업데이트합니다.
-                  const updatedEvent = {
-                    ...event,
-                    [name]: value,
-                  };
-                  console.log(name); // 콘솔에 업데이트된 eventLocation 출력
-                  console.log(value); //
-                  setEvent(updatedEvent);
+                  handle.selectAddress(data);
                 }}
                 autoClose={false}
               />

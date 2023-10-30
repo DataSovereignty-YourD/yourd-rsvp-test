@@ -35,30 +35,19 @@ const Preview = () => {
   );
 };
 
-function CreatePage ({setEventInfo}:{setEventInfo:any}) {
-  // 값 저장하기
-  const [event, setEvent] = useState({
-    eventName: "",
-    eventPeopleLimit: 0,
-  });
-  const [buttonBgColor, setButtonBgColor] = useState<string>("black"); // 배경색 상태 추가
-
+function CreatePage({ setEventInfo }: { setEventInfo: any }) {
+  const [eventName, setEventName] = useState("");
+  const [maxAttendees, setMaxAttendees] = useState("");
   const onChange = (e: any) => {
     const { value, name } = e.target;
-    setEvent({
-      ...event,
+    setEventInfo((prevEventInfo: any) => ({
+      ...prevEventInfo,
       [name]: value,
-    });
-    console.log(value);
-    console.log(name);
-  };
-
-  // 입력값이 다 들어오면 배경색이 바뀜
-  const checkInputValidity = () => {
-    if (event.eventName && event.eventPeopleLimit) {
-      setButtonBgColor("black");
+    }));
+    if (name == "eventName") {
+      setEventName(value);
     } else {
-      setButtonBgColor("white");
+      setMaxAttendees(value);
     }
   };
   // 숫자만 들어오게 설정
@@ -85,7 +74,7 @@ function CreatePage ({setEventInfo}:{setEventInfo:any}) {
                 type="text"
                 placeholder="이름"
                 className=" border-b-4 border-blue-600  rounded w-80 h-12 p-4"
-                value={event.eventName}
+                value={eventName}
                 onChange={onChange}
               ></input>
             </div>
@@ -94,11 +83,11 @@ function CreatePage ({setEventInfo}:{setEventInfo:any}) {
             <div className="text-black-500 font-normal">How Many People</div>
             <div className=" items-center justify-center w-full gap-6 ">
               <input
-                name="eventPeopleLimit"
+                name="maxAttendees"
                 type="number"
                 placeholder="Number"
                 className=" border-b-4 border-blue-600 rounded w-80 h-12 p-4"
-                value={event.eventPeopleLimit}
+                value={maxAttendees}
                 onChange={onChange}
               ></input>
             </div>
@@ -107,5 +96,5 @@ function CreatePage ({setEventInfo}:{setEventInfo:any}) {
       </div>
     </div>
   );
-};
+}
 export default CreatePage;
