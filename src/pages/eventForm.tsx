@@ -7,15 +7,18 @@ import StepIndicator from "../components/create/stepIndicator";
 function EventForm() {
   const [currentStep, setCurrentStep] = useState(1);
   const [completedSteps, setCompletedSteps] = useState<any[]>([]);
-  
+
   const [eventInfo, setEventInfo] = useState({
     eventName: "",
     maxAttendees: "",
     eventImage: null,
     startDate: "",
     startTime: "",
+    startMinute: "",
     endDate: "",
     endTime: "",
+    endMinute: "",
+    eventLocation: "",
   });
 
   const isStepCompleted = (step: any) => {
@@ -24,7 +27,7 @@ function EventForm() {
 
   const handleNext = () => {
     if (currentStep < 3) {
-      setCompletedSteps((prev):any => [...prev, currentStep]);
+      setCompletedSteps((prev): any => [...prev, currentStep]);
       setCurrentStep((prev) => prev + 1);
     }
   };
@@ -38,37 +41,51 @@ function EventForm() {
   const renderStepContent = () => {
     switch (currentStep) {
       case 1:
-        return <div className="flex flex-col justify-center items-center max-w-5xl mx-auto">
-          <CreatePage setEventInfo={setEventInfo}/>
-          <div className="flex gap-10 mt-10 w-full justify-end">
-            <button onClick={handleNext} className="bg-gray-100 px-4 py-2 ">다음</button>
+        return (
+          <div className="flex flex-col justify-center items-center max-w-5xl mx-auto">
+            <CreatePage setEventInfo={setEventInfo} />
+            <div className="flex gap-10 mt-10 w-full justify-end">
+              <button onClick={handleNext} className="bg-gray-100 px-4 py-2 ">
+                다음
+              </button>
+            </div>
           </div>
-        </div>
+        );
       case 2:
-        return <div className="flex flex-col justify-center items-center max-w-5xl mx-auto">
-        <CreateDetail setEventInfo={setEventInfo}/>
-        <div className="flex gap-10 mt-10 w-full justify-end">
-            <button onClick={handlePrev} >이전</button>
-            <button onClick={handleNext} className="bg-gray-100 px-4 py-2 ">다음</button>
+        return (
+          <div className="flex flex-col justify-center items-center max-w-5xl mx-auto">
+            <CreateDetail setEventInfo={setEventInfo} />
+            <div className="flex gap-10 mt-10 w-full justify-end">
+              <button onClick={handlePrev}>이전</button>
+              <button onClick={handleNext} className="bg-gray-100 px-4 py-2 ">
+                다음
+              </button>
+            </div>
           </div>
-      </div>
+        );
       case 3:
-        return <div className="flex flex-col justify-center items-center max-w-5xl mx-auto">
-        <CreateRsvp eventInfo={eventInfo}/>
-        <div className="flex gap-10 mt-10 w-full justify-end">
-            <button onClick={handlePrev} >이전</button>
-            <button onClick={handleNext} className="bg-gray-100 px-4 py-2 ">생성</button>
+        return (
+          <div className="flex flex-col justify-center items-center max-w-5xl mx-auto">
+            <CreateRsvp eventInfo={eventInfo} />
+            <div className="flex gap-10 mt-10 w-full justify-end">
+              <button onClick={handlePrev}>이전</button>
+              <button onClick={handleNext} className="bg-gray-100 px-4 py-2 ">
+                생성
+              </button>
+            </div>
           </div>
-      </div>
+        );
       default:
         return null;
     }
   };
 
-  return <div className="h-screen pt-12">
-    <StepIndicator currentStep={currentStep}/>
-    {renderStepContent()}
-    </div>;
+  return (
+    <div className="h-screen pt-12">
+      <StepIndicator currentStep={currentStep} />
+      {renderStepContent()}
+    </div>
+  );
 }
 
 export default EventForm;
