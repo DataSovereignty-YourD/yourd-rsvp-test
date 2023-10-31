@@ -4,7 +4,11 @@ import CurrentPage from "../../pages/currentPage";
 import Login from "../common/login";
 
 function CreateRsvp({ eventInfo }: { eventInfo: any }) {
-  const [showLogin, setShowLogin] = useState(false); // 일단 로그인 해야 하므로 로직 처리 코드
+
+  const [showLogin, setShowLogin] = useState(false);
+  const handleClose = () => {
+    setShowLogin(false);
+  };
 
   return (
     <div className="  gap-8 w-full flex items-center justify-center h-fit  flex-col">
@@ -53,14 +57,15 @@ function CreateRsvp({ eventInfo }: { eventInfo: any }) {
           </div>
         </div>
       </div>
-      <button
-        onClick={() => setShowLogin(true)}
+      <button onClick={() => setShowLogin(true)} 
         className=" mt-8 flex h-16 font-bold text-3xl uppercase text-yellow-300 bg-black justify-center items-center p-4 rounded-md"
       >
         URL 생성하기
       </button>
-      {showLogin && <Login initialOpen={showLogin} />}
-    </div> //일단 모달창이 바로 뜨게는 만들었는데 ****수정필요
+
+      {showLogin && <Login initialOpen={showLogin} onClose={handleClose} />}
+    </div>//일단 모달창이 바로 뜨게는 만들었는데 ****수정필요 
+
   );
 }
 export default CreateRsvp;
